@@ -38,19 +38,6 @@ if __name__ == "__main__":
         doors = [Door(0), Door(1), Door(2)]
         doors[random.randint(0, 2)].setWinner()
         chosen_door = random.randint(0, 2)
-        
-        #Remove at random one of the other 2 doors - neither are winner doors
-        if getDoor(chosen_door).isWinner():
-            deleted_door = random.choice(getOtherDoors(chosen_door))
-            doors.remove(getDoor(deleted_door))
-
-        #Remove the loser door out of the other 2 doors
-        else:
-            other_doors = getOtherDoors(chosen_door)
-            for door_number in other_doors:
-                if not getDoor(door_number).isWinner():
-                    doors.remove(getDoor(door_number))
-                    break
 
         if choice == "d":
             if getDoor(chosen_door).isWinner():
@@ -65,6 +52,19 @@ if __name__ == "__main__":
                 wins += 1
 
         else:
+            #Remove at random one of the other 2 doors - neither are winner doors
+            if getDoor(chosen_door).isWinner():
+                deleted_door = random.choice(getOtherDoors(chosen_door))
+                doors.remove(getDoor(deleted_door))
+
+            #Remove the loser door out of the other 2 doors
+            else:
+                other_doors = getOtherDoors(chosen_door)
+                for door_number in other_doors:
+                    if not getDoor(door_number).isWinner():
+                        doors.remove(getDoor(door_number))
+                        break
+
             if random.choice(doors).isWinner():
                 wins += 1
             else:
